@@ -2,8 +2,8 @@ package main
 
 import (
 	"context"
+	"errors"
 	"flag"
-	"fmt"
 	"log"
 	"net"
 	"net/url"
@@ -16,8 +16,9 @@ import (
 	todo "github.com/morning-night-dream/play-cicd/gen/todo"
 )
 
-func main() {
+var errSyscall = errors.New("syscall")
 
+func main() {
 	// Define command line flags, add any other flag required to configure the
 	// service.
 	var (
@@ -27,6 +28,7 @@ func main() {
 		secureF   = flag.Bool("secure", false, "Use secure scheme (https or grpcs)")
 		dbgF      = flag.Bool("debug", false, "Log request and response bodies")
 	)
+
 	flag.Parse()
 
 	// Setup logger. Replace logger with your own log package of choice.
@@ -63,10 +65,12 @@ func main() {
 	go func() {
 		c := make(chan os.Signal, 1)
 		signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)
-		errc <- fmt.Errorf("%s", <-c)
+		logger.Printf("%s", <-c)
+		errc <- errSyscall
 	}()
 
 	var wg sync.WaitGroup
+
 	ctx, cancel := context.WithCancel(context.Background())
 
 	// Start the servers and send errors (if any) to the error channel.

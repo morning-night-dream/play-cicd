@@ -19,28 +19,41 @@ func NewTodo(logger *log.Logger) todo.Service {
 }
 
 // ReadTodoList implements ReadTodoList.
-func (s *todosrvc) ReadTodoList(ctx context.Context) (res *todo.ReadTodoListResponseBody, err error) {
-	res = &todo.ReadTodoListResponseBody{}
+func (s *todosrvc) ReadTodoList(ctx context.Context) (*todo.ReadTodoListResponseBody, error) {
+	res := &todo.ReadTodoListResponseBody{}
+
 	s.logger.Print("todo.ReadTodoList")
-	return
+
+	return res, nil
 }
 
 // CreateTodo implements CreateTodo.
-func (s *todosrvc) CreateTodo(ctx context.Context, p *todo.CreateTodoRequestBody) (res *todo.CreateTodoResponseBody, err error) {
-	res = &todo.CreateTodoResponseBody{}
+func (s *todosrvc) CreateTodo(
+	ctx context.Context,
+	p *todo.CreateTodoRequestBody,
+) (*todo.CreateTodoResponseBody, error) {
+	res := &todo.CreateTodoResponseBody{}
+
 	s.logger.Print("todo.CreateTodo")
-	return
+
+	return res, nil
 }
 
 // UpdateTodo implements UpdateTodo.
-func (s *todosrvc) UpdateTodo(ctx context.Context, p *todo.UpdateTodoPayload) (res *todo.UpdateTodoResponseBody, err error) {
-	res = &todo.UpdateTodoResponseBody{}
+func (s *todosrvc) UpdateTodo(
+	ctx context.Context,
+	p *todo.UpdateTodoPayload,
+) (*todo.UpdateTodoResponseBody, error) {
+	res := &todo.UpdateTodoResponseBody{}
+
 	s.logger.Print("todo.UpdateTodo")
-	return
+
+	return res, nil
 }
 
 // DeleteTodo implements DeleteTodo.
-func (s *todosrvc) DeleteTodo(ctx context.Context, p *todo.DeleteTodoPayload) (err error) {
+func (s *todosrvc) DeleteTodo(ctx context.Context, p *todo.DeleteTodoPayload) error {
 	s.logger.Print("todo.DeleteTodo")
-	return
+
+	return nil
 }

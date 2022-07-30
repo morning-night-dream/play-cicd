@@ -16,10 +16,22 @@ import (
 	"goa.design/goa/v3/middleware"
 )
 
+const (
+	ReadHeaderTimeout = 30 * time.Second
+	GracefulTime      = 30 * time.Second
+)
+
 // handleHTTPServer starts configures and starts a HTTP server on the given
 // URL. It shuts down the server if any error is received in the error channel.
-func handleHTTPServer(ctx context.Context, u *url.URL, todoEndpoints *todo.Endpoints, wg *sync.WaitGroup, errc chan error, logger *log.Logger, debug bool) {
-
+func handleHTTPServer(
+	ctx context.Context,
+	u *url.URL,
+	todoEndpoints *todo.Endpoints,
+	wg *sync.WaitGroup,
+	errc chan error,
+	logger *log.Logger,
+	debug bool,
+) {
 	// Setup goa log adapter.
 	var (
 		adapter middleware.Logger
@@ -74,12 +86,18 @@ func handleHTTPServer(ctx context.Context, u *url.URL, todoEndpoints *todo.Endpo
 
 	// Start HTTP server using default configuration, change the code to
 	// configure the server as required by your service.
-	srv := &http.Server{Addr: u.Host, Handler: handler}
+	srv := &http.Server{
+		Addr:              u.Host,
+		Handler:           handler,
+		ReadHeaderTimeout: ReadHeaderTimeout,
+	}
+
 	for _, m := range todoServer.Mounts {
 		logger.Printf("HTTP %q mounted on %s %s", m.Method, m.Verb, m.Pattern)
 	}
 
 	(*wg).Add(1)
+
 	go func() {
 		defer (*wg).Done()
 
@@ -92,8 +110,8 @@ func handleHTTPServer(ctx context.Context, u *url.URL, todoEndpoints *todo.Endpo
 		<-ctx.Done()
 		logger.Printf("shutting down HTTP server at %q", u.Host)
 
-		// Shutdown gracefully with a 30s timeout.
-		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+		// Shutdown gracefully.
+		ctx, cancel := context.WithTimeout(context.Background(), GracefulTime)
 		defer cancel()
 
 		err := srv.Shutdown(ctx)
@@ -108,7 +126,7 @@ func handleHTTPServer(ctx context.Context, u *url.URL, todoEndpoints *todo.Endpo
 // to correlate.
 func errorHandler(logger *log.Logger) func(context.Context, http.ResponseWriter, error) {
 	return func(ctx context.Context, w http.ResponseWriter, err error) {
-		id := ctx.Value(middleware.RequestIDKey).(string)
+		id, _ := ctx.Value(middleware.RequestIDKey).(string)
 		_, _ = w.Write([]byte("[" + id + "] encoding: " + err.Error()))
 		logger.Printf("[%s] ERROR: %s", id, err.Error())
 	}
