@@ -2,6 +2,8 @@ name: vulns
 
 on:
   pull_request:
+    paths:
+      - 'go.mod'
 
 jobs:
   vulns:
