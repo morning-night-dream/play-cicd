@@ -27,4 +27,9 @@ jobs:
         run: |
           mkdir public
           redoc-cli build gen/http/openapi3.yaml --output public/openapi.html
-
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
