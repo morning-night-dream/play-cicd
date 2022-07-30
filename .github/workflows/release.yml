@@ -32,9 +32,7 @@ jobs:
           version=v`date +%Y%m%d%H%M%S`
           echo "VERSION=${version}" >> $GITHUB_ENV
       - name: Docker Login
-        run: echo $CR_PAT | docker login ghcr.io -u ${OWNER,,} --password-stdin
-        env:
-          CR_PAT: ${{ secrets.GITHUB_TOKEN }}
+        run: echo "${{ secrets.GIT_DOCKER_PAT }}" | docker login ghcr.io -u ${OWNER,,} --password-stdin
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2
         with:
