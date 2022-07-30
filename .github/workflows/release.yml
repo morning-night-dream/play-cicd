@@ -39,5 +39,3 @@ jobs:
           args: release --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          Image: ghcr.io/${OWNER,,}/play-golang-cicd:${VERSION}
-          Version: v20220730
