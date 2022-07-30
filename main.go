@@ -12,16 +12,11 @@ import (
 	"sync"
 	"syscall"
 
-	"github.com/joho/godotenv"
 	"github.com/morning-night-dream/play-cicd/api"
 	todo "github.com/morning-night-dream/play-cicd/gen/todo"
 )
 
 func main() {
-	err := godotenv.Load("config/.env")
-	if err != nil {
-		log.Fatalf("error loading .env file %v", err)
-	}
 
 	// Define command line flags, add any other flag required to configure the
 	// service.
