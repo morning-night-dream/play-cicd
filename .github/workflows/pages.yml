@@ -1,0 +1,28 @@
+name: lint
+
+on:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.18
+      - name: Goa install
+        run: go install goa.design/goa/v3/cmd/goa@latest
+      - name: Goa generate
+        run: goa gen github.com/morning-night-dream/play-cicd/design
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: npm
+      - name: RedocCI install
+        run: |
+          npm install -g redoc-cli
+          redoc-cli --version
+      - name: Build html
+        run: redoc-cli build gen/http/openapi3.yaml
