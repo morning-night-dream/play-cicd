@@ -7,3 +7,6 @@ tidy:
 
 lint:
 	@golangci-lint run --fix
+
+dev:
+	@air

@@ -5,3 +5,4 @@
 !/ent/schema/*
 !/ent/generate.go
 main
+tmp
