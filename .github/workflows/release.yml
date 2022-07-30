@@ -23,6 +23,8 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.18
+      - name: Goa install
+        run: go install goa.design/goa/v3/cmd/goa@latest
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2
         with:
