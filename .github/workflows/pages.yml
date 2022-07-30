@@ -24,4 +24,7 @@ jobs:
           npm install -g redoc-cli
           redoc-cli --version
       - name: Build html
-        run: redoc-cli build gen/http/openapi3.yaml
+        run: |
+          mkdir public
+          redoc-cli build gen/http/openapi3.yaml --output public/openapi.html
+
