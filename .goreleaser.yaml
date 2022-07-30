@@ -33,4 +33,4 @@ changelog:
       - "^test:"
 dockers:
   - image_templates:
-      - ghcr.io/morning-night-dream/play-golang-cicd:v20220730
+      - ghcr.io/{{ .Env.OWNER }}/play-golang-cicd:{{ .Env.VERSION }}
