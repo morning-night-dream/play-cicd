@@ -29,8 +29,7 @@ jobs:
         run: go install goa.design/goa/v3/cmd/goa@latest
       - name: Set version
         run: |
-          version=v`date +%Y%m%d%H%M%S`
-          echo "VERSION=${version}" >> $GITHUB_ENV
+          echo "VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - name: Docker Login
         run: echo "${{ secrets.GIT_DOCKER_PAT }}" | docker login ghcr.io -u ${OWNER,,} --password-stdin
       - name: Run GoReleaser
