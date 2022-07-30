@@ -18,7 +18,7 @@ jobs:
         run: go install goa.design/goa/v3/cmd/goa@latest
       - name: Goa generate
         run: goa gen github.com/morning-night-dream/play-cicd/design
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: '16'
       - name: RedocCI install
