@@ -1,0 +1,7 @@
+/gen
+/cmd
+/ent/*/*
+/ent/*.go
+!/ent/schema/*
+!/ent/generate.go
+main
