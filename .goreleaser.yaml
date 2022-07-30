@@ -13,6 +13,7 @@ builds:
       - linux
       - windows
       - darwin
+    binary: main
 archives:
   - replacements:
       darwin: Darwin
@@ -30,3 +31,6 @@ changelog:
     exclude:
       - "^docs:"
       - "^test:"
+dockers:
+  - image_templates:
+      - "{{ .Image }}:{{ .Tag }}"
