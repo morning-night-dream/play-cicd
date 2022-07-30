@@ -9,6 +9,21 @@ linters:
     - exhaustruct
     - godox
     - ireturn
+    # disable because deprecated
+    - golint
+    - interfacer
+    - maligned
+    - scopelint
+    # disable because go 1.18
+    - contextcheck
+    - interfacer
+    - nilerr
+    - noctx
+    - rowserrcheck
+    - sqlclosecheck
+    - structcheck
+    - tparallel
+    - wastedassign
 issues:
   exclude-rules:
     - path: _test\.go
