@@ -28,7 +28,6 @@ func main() {
 		secureF   = flag.Bool("secure", false, "Use secure scheme (https or grpcs)")
 		dbgF      = flag.Bool("debug", false, "Log request and response bodies")
 	)
-
 	flag.Parse()
 
 	// Setup logger. Replace logger with your own log package of choice.
