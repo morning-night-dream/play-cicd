@@ -1,3 +1,4 @@
+//go:generate goa gen github.com/morning-night-dream/play-cicd/design --output ../
 package design
 
 import (

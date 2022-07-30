@@ -6,3 +6,4 @@
 !/ent/generate.go
 main
 tmp
+dist
