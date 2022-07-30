@@ -16,7 +16,7 @@ jobs:
         run: go install goa.design/goa/v3/cmd/goa@latest
       - name: Goa generate
         run: goa gen github.com/morning-night-dream/play-cicd/design
-      - name: golangci-lint
+      - name: Golangci lint
         uses: golangci/golangci-lint-action@v2
         with:
           version: latest
