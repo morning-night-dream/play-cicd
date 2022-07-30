@@ -33,4 +33,4 @@ changelog:
       - "^test:"
 dockers:
   - image_templates:
-      - "{{ .Image }}:{{ .Tag }}"
+      - "{{ env.Image }}:{{ env.Tag }}"
