@@ -5,5 +5,5 @@
 !/ent/schema/*
 !/ent/generate.go
 main
-
-dist/
+tmp
+dist
