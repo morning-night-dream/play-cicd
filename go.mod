@@ -1,6 +1,6 @@
 module github.com/morning-night-dream/play-cicd
 
-go 1.18
+go 1.19
 
 require goa.design/goa/v3 v3.7.13
 
