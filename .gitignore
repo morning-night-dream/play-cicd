@@ -7,3 +7,5 @@
 main
 tmp
 dist
+/.go/*
+!.go/.gitkeep
